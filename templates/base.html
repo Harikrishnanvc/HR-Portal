@@ -1,0 +1,207 @@
+{% load static %}
+{% if request.user.is_authenticated %}
+<!--<link rel="stylesheet" href="{% static 'css/navbar.css' %}" type="text/css" />-->
+<!--<script src="{% static 'js/navbar.js' %}" type="text/javascript"></script>-->
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet">
+  <script src="YourJquery source path"></script>
+  <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
+
+
+
+
+
+
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+  <!------ Include the above in your HEAD tag ---------->
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+
+
+
+
+
+
+  <!------ Include the above in your HEAD tag ---------->
+
+
+  <!------ Include the above in your HEAD tag ---------->
+
+
+
+
+
+
+
+
+
+<!------ Include the above in your HEAD tag ---------->
+
+<style>
+
+
+    nav {
+  margin: 27px auto 0;
+
+  position: relative;
+  width: 550px;
+  height: 50px;
+  background-color: #00b386;
+  border-radius: 8px;
+  font-size: 0;
+}
+nav a {
+  line-height: 50px;
+  height: 100%;
+  font-size: 15px;
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+  text-decoration: none;
+  text-transform: uppercase;
+  text-align: center;
+  color: white;
+  cursor: pointer;
+}
+nav .animation {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  z-index: 0;
+  transition: all .5s ease 0s;
+  border-radius: 8px;
+}
+a:nth-child(1) {
+  width: 100px;
+}
+a:nth-child(2) {
+  width: 100px;
+}
+a:nth-child(3) {
+  width: 140px;
+}
+a:nth-child(4) {
+  width: 100px;
+}
+a:nth-child(5) {
+  width: 100px;
+}
+nav .start-home, a:nth-child(1):hover~.animation {
+  width: 100px;
+  left: 0;
+  background-color: #1abc9c;
+}
+nav .start-about, a:nth-child(2):hover~.animation {
+  width: 110px;
+  left: 100px;
+  background-color: #e74c3c;
+}
+nav .start-blog, a:nth-child(3):hover~.animation {
+  width: 120px;
+  left: 210px;
+  background-color: #3498db;
+}
+nav .start-portefolio, a:nth-child(4):hover~.animation {
+  width: 100px;
+  left: 335px;
+  background-color: #9b59b6;
+}
+nav .start-contact, a:nth-child(5):hover~.animation {
+  width: 100px;
+  left: 430px;
+  background-color: #e67e22;
+}
+
+body {
+  font-size: 12px;
+  font-family: sans-serif;
+  background: #2c3e50;
+}
+h1 {
+  text-align: center;
+  margin: 40px 0 40px;
+  text-align: center;
+  font-size: 30px;
+  color: #ecf0f1;
+  text-shadow: 2px 2px 4px #000000;
+  font-family: 'Cherry Swash', cursive;
+}
+
+p {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+    color: #ecf0f1;
+    font-family: 'Cherry Swash',cursive;
+    font-size: 16px;
+}
+
+span {
+    color: #2BD6B4;
+}
+
+
+
+
+.box{
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform: translate(-50%,-50%);
+}
+.input {
+    padding: 10px;
+    width: 140px;
+    height: 50px;
+    background: none;
+    border: 4px solid #00b386;
+    border-radius: 50px;
+    box-sizing: border-box;
+    font-family: Comic Sans MS;
+    font-size: 26px;
+    color: white;
+    outline: none;
+    transition: .5s;
+}
+.box:hover input{
+    width: 300px;
+    background: #34495e;
+    border-radius: 10px;
+}
+i{
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translate(-50%,-50%);
+    font-size: 26px;
+    color: #ffd52d;
+    transition: .2s;
+}
+.box:hover i{
+    opacity: 0;
+    z-index: -1;
+}
+</style>
+
+<body>
+
+<nav>
+    <a href="{% url 'dashboard' %}">Home</a>
+    <a href="{% url 'employee_details' %}">Profile</a>
+    <a href="{% url 'subscriptions-home' %}">Subscription</a>
+    <a href="{% url 'logout' %}">Logout</a>
+    <a href="{% url 'employee_chat' %}" style="">
+    <i class="fab fa-facebook-messenger" style="color:white; font-size:20px; font-samily:'Poppins', sans-serif; margin-right:55px;"></i>Chat</a>
+    <div class="animation start-home"></div>
+    </nav>
+
+
+{% block content %}
+{% endblock %}
+{% endif %}

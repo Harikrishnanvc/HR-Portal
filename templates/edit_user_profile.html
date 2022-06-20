@@ -1,0 +1,155 @@
+{% extends 'admin_panel.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/create_user.css' %}" type="text/css"/>
+<script src="{% static 'js/create_user.js' %}" type="text/javascript"></script>
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/@trevoreyre/autocomplete-js/dist/style.css" />
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+
+
+<!------ Include the above in your HEAD tag ---------->
+<body style="background-color:#34495e;">
+<section class="testimonial py-5" id="testimonial" >
+    <div class="container" style="margin-top:100px;" >
+        <div class="row ">
+            <div class="col-md-4 py-5 text-white text-center " style="background-color:#00b3b3;">
+                <div class=" ">
+                    <div class="card-body">
+                        <img src="http://www.ansonika.com/mavia/img/registration_bg.svg" style="width:30%">
+                        <h2 class="py-3">Update Profile</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 py-5 " style="background-color:#ccffff;">
+                <h4 class="pb-4">Please fill with your details</h4>
+                {% for i in profile_details %}
+            <form method="POST" enctype="multipart/form-data" action="{% url 'edit_user' i.pk %}">
+                {% csrf_token %}
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <input id="Full Name" name="first_name" placeholder="First Name" class="form-control"
+                                   type="text" required value="{{ i.first_name}}">
+                        </div>
+
+
+                        <div class="form-group col-md-6">
+                            <input id=" Name" name="second_name" placeholder="Second Name" class="form-control"
+                                   type="text" required value="{{ i.second_name }}">
+                        </div>
+
+
+                        <div class="form-group col-md-6">
+                            <input type="email" name="email" class="form-control" id="" placeholder="Email" required value="{{ i.email}}">
+                        </div>
+
+
+                        <div class="form-group col-md-6">
+                            <input type="text" name="employee_id" class="form-control" id=""
+                                   placeholder="Employee ID" required value="{{ i.employee_id}}">
+                        </div>
+
+
+                        <div class="form-group col-md-6">
+                            <input type="text" name="designation" class="form-control" id="inputEmail4"
+                                   placeholder="Designation" required value="{{ i.designation}}">
+                        </div>
+
+
+                          <div class="form-group col-md-6">
+                                <input id="Mobile No." name="mobile_no" placeholder="Mobile Number" class="form-control"
+                                       required="required" type="text" required value="{{ i.mobile_no }}">
+                            </div>
+
+       <div class="form-group col-md-6">
+
+                                <select name="department" id="inputState" class="form-control">
+                                    <option selected>{{ i.department }}</option>
+                                    <option> Python</option>
+                                    <option> Java</option>
+                                    <option> PHP</option>
+                                    <option> Dot Net</option>
+                                </select>
+                            </div>
+
+
+
+                            <div class="form-group col-md-6">
+                                <div id="autocomplete" class="autocomplete">
+                                    <input name="city" placeholder="search your city" class="form-control" required value="{{ i.city}}" />
+                                    <ul class="autocomplete-result-list"></ul>
+                                </div>
+                            </div>
+
+
+
+<!--                         <div class="form-group col-md-6">-->
+<!--                            <input type="file" name="profile_pic" class="form-control" id="files" >-->
+<!--                            <label for="files">upload your profile picture ( {{i.profile_pic.url}} )</label>-->
+<!--                        </div>-->
+                        </div>
+                   <div class="form-row">
+                        <button style="margin-left:5px; width:60px; margin-top:10px;" type="submit" class="btn btn-danger">Submit</button>
+                    </div>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+
+{% endfor %}
+
+
+<script src="https://unpkg.com/@trevoreyre/autocomplete-js"></script>
+    <script>
+        new Autocomplete('#autocomplete', {
+
+            search: input => {
+                console.log(input)
+                const url = `/search/?address=${(input)}`
+                return new Promise(resolve => {
+                    fetch(url)
+                        .then(response => response.json())
+                        .then(data => {
+                            resolve(data.data)
+                        })
+                })
+            },
+
+
+            renderResult: (result, props) => {
+                console.log(props)
+
+                let group = ''
+                if (result.index % 3 === 0) {
+                    group = `<li class="group">Group</li>`
+                }
+                return `
+      ${group}
+      <li ${props}>
+        <div class="wiki-title">
+          ${result}
+        </div>
+
+      </li>
+    `
+            },
+
+            getResultValue: result => result,
+
+        })
+    </script>
+
+
+{% endblock %}
+
+

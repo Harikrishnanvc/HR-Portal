@@ -1,0 +1,303 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<link rel="stylesheet" href="{% static 'css/table.css' %}" type="text/css"/>
+<link rel="stylesheet" href="{% static 'css/leave_bar.css' %}" type="text/css"/>
+<style>
+
+.date-time {
+    float:left;
+margin-top:20px;
+margin-left:50px;
+width:300px;
+height:130px;
+background-color:#ff0066;
+border-radius:10px;
+box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+.clockin {
+float:left;
+margin-left:50px;
+margin-top:20px;
+width:300px;
+height:130px;
+background-color:#ff8000;
+border-radius:10px;
+box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+.employee {
+float:left;
+margin-left:50px;
+margin-top:20px;
+width:300px;
+height:130px;
+background-color:#ff8080;
+border-radius:10px;
+text-align:center;
+box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+.holiday {
+float:left;
+margin-left:50px;
+margin-top:20px;
+width:300px;
+height:130px;
+background-color:#006699;
+border-radius:10px;
+box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+
+.post{
+width:1350px;
+height:340px;
+background:#ccfff2;
+border-radius:2px;
+
+}
+
+section{
+    float:left;
+    width:100%;
+    background: #black;  /* fallback for old browsers */
+    padding:20px 0;
+}
+
+.row-1 {
+float:left;
+margin-left:100px;
+
+}
+.row-2 {
+float:left;
+margin-left:150px;
+margin-top:50px;
+}
+
+input[type=checkbox]{
+	height: 0;
+	width: 0;
+	visibility: hidden;
+}
+
+label {
+	cursor: pointer;
+	text-indent: -9999px;
+	width: 100px;
+	height: 50px;
+	background: #b3ffff;
+	display: block;
+	border-radius: 100px;
+	position: relative;
+}
+
+label:after {
+	content: '';
+	position: absolute;
+	top: 5px;
+	left: 5px;
+	width: 40px;
+	height: 40px;
+	background: #006666;
+	border-radius: 90px;
+	transition: 0.3s;
+}
+
+input:checked + label {
+	background:  #33cccc;
+}
+
+input:checked + label:after {
+	left: calc(100% - 5px);
+	transform: translateX(-100%);
+}
+
+label:active:after {
+	width: 130px;
+}
+
+// centering
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+
+.check-box {
+margin: auto;
+  width: 50%;
+
+  padding: 0.5px;
+}
+
+.profile {
+width:100px;
+height:100px    ;
+border-radius:50%;
+margin-left:50px;
+}
+</style>
+<body>
+
+<h3 style="color:white; margin-left:50px;">Hi {{ user.username }}</h3>
+
+<form method="post" action="{% url 'clock_action' %}" id="your_form" >
+    {% csrf_token %}
+
+    <section>
+        </div>
+        <div class="row-1">
+            <div class="clockin" >
+                <h4 style="margin-left:12px; color:white;">ClockIn</h4>
+                <div class="check-box" >
+                    <input type="checkbox" id="switch" value="{% if time_sheet.logging == 'IN' %}OUT{% else %}IN{% endif %}" name="clock_action" onclick="yourFunction(event)"/><label for="switch">Toggle</label>
+<!--                   <button type="submit" >Clock In</button>-->
+                    <h4 style="margin-left:130px; color:white;">ClockOut</h4>
+                </div>
+            </div>
+
+            <div class="date-time">
+                <h2 style="color:white; font-family: 'PT Sans', sans-serif; text-align:center;">{{ current_time }}</h2>
+                <h2 style="color:white; font-family: 'PT Sans', sans-serif; text-align:center; margin-top:10px;">{{ current_date }}</h2>
+            </div>
+
+            <div class="employee">
+
+                <div class="row d-flex justify-content-center mt-100">
+           <div class="col-md-6">
+               <div class="progress blue">
+                 <span class="progress-left">
+                                   <span class="progress-bar"></span>
+                 </span>
+
+                 <span class="progress-right">
+                                   <span class="progress-bar"></span>
+                 </span>
+                 <div class="progress-value">90%</div>
+
+               </div>
+
+
+            </div>
+                       <div class="progress yellow">
+                   <span class="progress-left">
+                                   <span class="progress-bar"></span>
+                   </span>
+                   <span class="progress-right">
+                                   <span class="progress-bar"></span>
+                   </span>
+                   <div class="progress-value">37.5%</div>
+                 </div>
+                         </div>
+
+       </div>
+
+            <div class="holiday">
+                <h4 style="color:white; font-samily:'Poppins', sans-serif; margin-top:20px; margin-left:80px;">Employee Count</h4>
+                <h2 style="color:white; font-size:50; font-samily:'Poppins', sans-serif; margin-top:10px; margin-left:130px;">
+                    {{employee_count}}</h2>
+            </div>
+
+        </div>
+      <div class="row-2">
+          <div class="post">
+            <div class="container rounded mt-5 bg-white p-md-5">
+    <div class="h2 font-weight-bold">Time Sheet</div>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">IN</th>
+                    <th scope="col">OUT</th>
+                    <th scope="col">Gross Hour</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for i in employee_timesheet_list %}
+                <tr class="bg-blue">
+                    <td class="pt-2">
+                        <div class="pl-lg-5 pl-md-3 pl-1 name">{{ i.recorded_datetime }}</div>
+                    </td>
+
+                    <td class="pt-3 mt-1">{{ i.clock_in_time }}</td>
+                    <td class="pt-3">{{ i.clock_out_time }}</td>
+                    <td class="pt-3">{{ gross_hour }}</td>
+                     <td class="pt-3">{{ status }}</td>
+                    <td></td>
+                    {% if i.status == False %}
+                    <td class="pt-3"><span style="color:green;  font-size:20px;" class="fa fa-check pl-3"></span></td>
+                    {% elif i.status == True %}
+                    <td class="pt-3"><span style="color:red; font-size:20px;" class="fa fa-times" aria-hidden="true"></span></td>
+                    {% endif %}
+                    <td class="pt-3"><span class="fa fa-ellipsis-v btn"></span></td>
+                </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+                </div>
+</div>
+      </div>
+    </section>
+</form>
+
+<script>
+
+    $(function() {
+
+  $(".progress").each(function() {
+
+    var value = $(this).attr('data-value');
+    var left = $(this).find('.progress-left .progress-bar');
+    var right = $(this).find('.progress-right .progress-bar');
+
+    if (value > 0) {
+      if (value <= 50) {
+        right.css('transform', 'rotate(' + percentageToDegrees(value) + 'deg)')
+      } else {
+        right.css('transform', 'rotate(180deg)')
+        left.css('transform', 'rotate(' + percentageToDegrees(value - 50) + 'deg)')
+      }
+    }
+
+  })
+
+  function percentageToDegrees(percentage) {
+
+    return percentage / 100 * 360
+  }
+});
+</script>
+
+<script>
+      function yourFunction(event){
+      if (document.getElementById('switch').checked){
+      console.log(document.getElementById('switch').value)
+       event.currentTarget.closest('form').submit()
+      }
+      else{
+      document.getElementById('switch').value='OUT'
+      console.log(document.getElementById('switch').value)
+       event.currentTarget.closest('form').submit()
+      }
+
+}
+
+</script>
+</body>
+</html>
+{% endblock %}
