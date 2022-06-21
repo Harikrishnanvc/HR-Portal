@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'wcf5u*@sgwo#_-khz==ejyw=qmpk@_0heu^yuibnr_z9u3cgaq'
+SECRET_KEY = env("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -197,11 +197,11 @@ STATIC_URL = '/static/'
 # gmail_send/settings.py
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'adarshcm001@gmail.com'
-EMAIL_HOST_PASSWORD = 'jnzihinxnlvezadr'
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'adarshcm001@gmail.com'
+DEFAULT_FROM_EMAIL = env("EMAIL_HOST_USER")
 
 # image upload
 MEDIA_URL = '/media/'
